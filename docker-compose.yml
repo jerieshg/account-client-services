@@ -1,0 +1,63 @@
+services:
+  database:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPassword123
+      MYSQL_DATABASE: devsu_api
+      MYSQL_USER: devsu_user
+      MYSQL_PASSWORD: safePassword123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/BaseDatos.sql:/docker-entrypoint-initdb.d/BaseDatos.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootPassword123" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+  account-service:
+    restart: on-failure
+    build: account-service
+    hostname: account-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/devsu_api
+    ports:
+      - '81:8080'
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/api/account-service/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+  client-service:
+    restart: on-failure
+    build: client-service
+    hostname: client-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/devsu_api
+    ports:
+      - '82:8080'
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/client-service/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+  nginx:
+    build: nginx
+    ports:
+    - '80:80'
+    depends_on:
+      account-service:
+        condition: service_healthy
+      client-service:
+        condition: service_healthy

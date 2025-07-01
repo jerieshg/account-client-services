@@ -25,21 +25,6 @@ allprojects {
 	}
 }
 
-dependencies {
-	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-	annotationProcessor("org.projectlombok:lombok")
-
-	compileOnly("org.mapstruct:mapstruct:1.6.3")
-	compileOnly("org.projectlombok:lombok")
-
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-
-	runtimeOnly("com.h2database:h2")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
+tasks.named("bootJar") {
+	enabled = false
 }

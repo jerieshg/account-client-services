@@ -2,6 +2,7 @@ package com.devsu.jh.clientservice.controller;
 
 import com.devsu.jh.clientservice.dto.ClienteDto;
 import com.devsu.jh.clientservice.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +33,13 @@ public class ClientesController {
     }
 
     @PostMapping
-    public ClienteDto createCliente(@RequestBody ClienteDto clienteDto) {
+    public ClienteDto createCliente(@Valid @RequestBody ClienteDto clienteDto) {
         return clienteService.createCliente(clienteDto);
     }
 
-    @PutMapping("/{clienteId}")
-    public ClienteDto updateCliente(@PathVariable("clienteId") Long clienteId, @RequestBody ClienteDto clienteDto) {
-        return clienteService.updateCliente(clienteDto, clienteId);
+    @PutMapping
+    public ClienteDto updateCliente(@Valid @RequestBody ClienteDto clienteDto) {
+        return clienteService.updateCliente(clienteDto);
     }
 
     @DeleteMapping("/{clienteId}")

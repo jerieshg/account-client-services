@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
-    @Query(value = "SELECT movimiento FROM Movimiento movimiento WHERE movimiento.cuentaId = :cuentaId")
-    List<Movimiento> findMovimientosByCuenta(@Param("cuentaId") Long cuentaId);
+    List<Movimiento> findByNumeroDeCuenta(Long numeroDeCuenta);
 }

@@ -4,6 +4,10 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
+springBoot {
+	mainClass="com.devsu.jh.accountservice.AccountServiceApplication"
+}
+
 dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 	annotationProcessor("org.projectlombok:lombok")
@@ -12,10 +16,13 @@ dependencies {
 	compileOnly("org.mapstruct:mapstruct:1.6.3")
 	compileOnly("org.projectlombok:lombok")
 
+	implementation("org.springframework.boot:spring-boot-starter-actuator:3.5.3")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+	implementation("com.mysql:mysql-connector-j:9.3.0")
 
-	runtimeOnly("com.h2database:h2")
+	testRuntimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

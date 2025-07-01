@@ -1,8 +1,8 @@
 package com.devsu.jh.accountservice.controller;
 
-import com.devsu.jh.accountservice.dto.CuentaDto;
 import com.devsu.jh.accountservice.dto.MovimientoDto;
 import com.devsu.jh.accountservice.service.MovimientoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +12,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/movimientos")
 public class MovimientosController {
-    
+
     private final MovimientoService movimientoService;
 
-    @GetMapping("/{cuentaId}")
-    public List<MovimientoDto> retrieveCuentaById(@PathVariable("cuentaId") Long cuentaId) {
-        return movimientoService.retrieveMovimientoByCuentas(cuentaId);
+    @GetMapping("/{cuenta}")
+    public List<MovimientoDto> retrieveByCuentaById(@PathVariable("cuenta") Long cuenta) {
+        return movimientoService.retrieveMovimientoByCuentas(cuenta);
     }
 
     @PostMapping
-    public MovimientoDto registerMovimiento(@RequestBody MovimientoDto movimientoDto) {
-        return movimientoService.createMovimiento(movimientoDto);
+    public MovimientoDto registerMovimiento(@Valid @RequestBody MovimientoDto movimientoDto) {
+        return movimientoService.registrarMovimiento(movimientoDto);
     }
 
     @PutMapping("/{movimientoId}")
-    public MovimientoDto updateMovimiento(@PathVariable("movimientoId") Long movimientoId, @RequestBody MovimientoDto movimientoDto) {
+    public MovimientoDto updateMovimiento(@PathVariable("movimientoId") Long movimientoId, @Valid @RequestBody MovimientoDto movimientoDto) {
         return movimientoService.updateMovimiento(movimientoId, movimientoDto);
     }
 

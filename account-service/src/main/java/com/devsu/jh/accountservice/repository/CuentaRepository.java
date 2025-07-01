@@ -11,4 +11,6 @@ import java.util.List;
 public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
     @Query(value = "SELECT cuenta FROM Cuenta cuenta WHERE cuenta.status = true")
     List<Cuenta> findActiveCuentas();
+
+    List<Cuenta> findByClienteId(Long clientId);
 }

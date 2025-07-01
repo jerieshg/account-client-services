@@ -2,6 +2,7 @@ package com.devsu.jh.accountservice.controller;
 
 import com.devsu.jh.accountservice.dto.CuentaDto;
 import com.devsu.jh.accountservice.service.CuentasService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +20,24 @@ public class CuentaController {
         return cuentasService.retrieveCuentas();
     }
 
-    @GetMapping("/{cuentaId}")
-    public CuentaDto retrieveCuentaById(@PathVariable("cuentaId") Long cuentaId) {
-        return cuentasService.retrieveCuentaById(cuentaId);
+    @GetMapping("/{cuenta}")
+    public CuentaDto retrieveCuentaByNumeroDeCuenta(@PathVariable("cuenta") Long cuenta) {
+        return cuentasService.retrieveCuentaByNumDeCuenta(cuenta);
+    }
+
+    @GetMapping("/clientes/{clientId}")
+    public List<CuentaDto> retreiveByClient(@PathVariable("clientId") Long clientId) {
+        return cuentasService.retrieveByClientId(clientId);
     }
 
     @PostMapping
-    public CuentaDto createCuenta(@RequestBody CuentaDto cuentaDto) {
+    public CuentaDto createCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
         return cuentasService.createCuenta(cuentaDto);
     }
 
-    @PutMapping("/{cuentaId}")
-    public CuentaDto updateCuenta(@PathVariable("cuentaId") Long cuentaId, @RequestBody CuentaDto cuentaDto) {
-        return cuentasService.updateCuenta(cuentaId, cuentaDto);
+    @PutMapping
+    public CuentaDto updateCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
+        return cuentasService.updateCuenta(cuentaDto);
     }
 
     @DeleteMapping("/{cuentaId}")

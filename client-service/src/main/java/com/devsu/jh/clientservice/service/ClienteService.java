@@ -1,7 +1,6 @@
 package com.devsu.jh.clientservice.service;
 
 import com.devsu.jh.clientservice.dto.ClienteDto;
-import com.devsu.jh.clientservice.entity.Cliente;
 import com.devsu.jh.clientservice.exception.NotFoundException;
 import com.devsu.jh.clientservice.mapper.ClienteMapper;
 import com.devsu.jh.clientservice.repository.ClienteRepository;
@@ -30,14 +29,15 @@ public class ClienteService {
     }
 
     public ClienteDto createCliente(ClienteDto clienteDto) {
-        Cliente cliente = clienteMapper.toEntity(clienteDto);
+        var cliente = clienteMapper.toEntity(clienteDto);
         return clienteMapper.toDto(clienteRepository.save(cliente));
     }
 
-    public ClienteDto updateCliente(ClienteDto clienteDto, Long clienteId) {
-        log.info("Updating client with id {}", clienteId);
-        Cliente cliente = clienteMapper.toEntity(clienteDto);
-        cliente.setClienteId(clienteId);
+    public ClienteDto updateCliente(ClienteDto clienteDto) {
+        log.info("Updating client with id {}", clienteDto.getClienteId());
+        if (clienteDto.getClienteId() == null) throw new IllegalArgumentException("Cliente Id is missing");
+
+        var cliente = clienteMapper.toEntity(clienteDto);
         return clienteMapper.toDto(clienteRepository.save(cliente));
     }
 

@@ -29,7 +29,7 @@ public class Movimiento {
     private String tipoDeMovimiento;
     @Column(name = "VALOR")
     private BigDecimal valor;
-    @Column(name = "CUENTA_ID")
-    private Long cuentaId;
+    @Column(name = "NUMERO_DE_CUENTA")
+    private Long numeroDeCuenta;
 }
 

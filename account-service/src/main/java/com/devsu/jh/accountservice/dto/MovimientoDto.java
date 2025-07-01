@@ -1,5 +1,6 @@
 package com.devsu.jh.accountservice.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +11,12 @@ import java.time.LocalDate;
 @Setter
 public class MovimientoDto {
     private Long movimientoId;
-    private Long cuentaId;
+    @NotNull
+    private Long numeroDeCuenta;
     private LocalDate fecha;
+    @NotNull
     private String tipoDeMovimiento;
+    @NotNull
     private BigDecimal valor;
 }
 
