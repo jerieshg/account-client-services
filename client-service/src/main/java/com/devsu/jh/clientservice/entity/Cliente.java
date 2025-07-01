@@ -15,7 +15,7 @@ public class Cliente extends Persona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CLIENT_ID")
+    @Column(name = "CLIENTE_ID")
     private Long clienteId;
     @Column(name = "PASSWORD")
     private String password;

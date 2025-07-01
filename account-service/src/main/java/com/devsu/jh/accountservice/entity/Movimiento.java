@@ -21,13 +21,15 @@ public class Movimiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MOVEMENT_ID")
-    private Long movementId;
+    @Column(name = "MOVIMIENTO_ID")
+    private Long movimientoId;
     @Column(name = "FECHA")
     private LocalDate fecha;
     @Column(name = "TIPO_DE_MOVIMIENTO")
     private String tipoDeMovimiento;
     @Column(name = "VALOR")
     private BigDecimal valor;
+    @Column(name = "CUENTA_ID")
+    private Long cuentaId;
 }
 

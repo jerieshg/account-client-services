@@ -3,7 +3,6 @@ package com.devsu.jh.accountservice.mapper;
 import com.devsu.jh.accountservice.dto.CuentaDto;
 import com.devsu.jh.accountservice.entity.Cuenta;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
