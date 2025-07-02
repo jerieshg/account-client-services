@@ -1,11 +1,11 @@
 drop
-  table if exists devsu_api.movimientos cascade;
+  table if exists movimientos cascade;
 drop
-   table if exists devsu_api.clientes cascade;
+   table if exists clientes cascade;
 drop
-  table if exists devsu_api.cuentas cascade;
+  table if exists cuentas cascade;
 
-create table devsu_api.clientes (
+create table clientes (
   cliente_id bigint NOT NULL AUTO_INCREMENT,
   edad integer NOT NULL,
   status boolean NOT NULL,
@@ -18,7 +18,7 @@ create table devsu_api.clientes (
   primary key (cliente_id)
 );
 
-create table devsu_api.cuentas (
+create table cuentas (
   numero_de_cuenta bigint NOT NULL unique,
   saldo numeric(38, 2) NOT NULL,
   status boolean NOT NULL,
@@ -28,7 +28,7 @@ create table devsu_api.cuentas (
   primary key (numero_de_cuenta)
 );
 
-create table devsu_api.movimientos (
+create table movimientos (
   movimiento_id bigint NOT NULL AUTO_INCREMENT,
   fecha date NOT NULL,
   saldo_inicial numeric(38, 2) NOT NULL,
@@ -38,32 +38,3 @@ create table devsu_api.movimientos (
   foreign key (numero_de_cuenta) references cuentas(numero_de_cuenta),
   primary key (movimiento_id)
 );
-
-insert into devsu_api.clientes(
-  NOMBRE, GENERO, EDAD, IDENTIFICACION,
-  DIRECCION, TELEFONO, PASSWORD, STATUS
-)
-values
-  (
-    'Jose Lema', 'Masculino', 33, '0000-1111-22222',
-    'San Pedro Sula', '3133-0501', '12345',
-    true
-  );
-
-insert into devsu_api.cuentas(
-  NUMERO_DE_CUENTA, ACCOUNT_TYPE, SALDO,
-  STATUS, CLIENTE_ID
-)
-values
-  (
-    102301230, 'Savings', '1100', true,
-    1
-  );
-
-insert into devsu_api.movimientos(
-    FECHA, saldo_inicial, VALOR, NUMERO_DE_CUENTA, tipo_de_movimiento
-)
-values
-  (
-  '2025-06-30', 600, 500, 102301230, 'Deposito de 500'
-  )

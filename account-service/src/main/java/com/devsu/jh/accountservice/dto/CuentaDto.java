@@ -14,7 +14,7 @@ public class CuentaDto {
     @NotNull
     private String accountType;
     @NotNull
-    private BigDecimal saldoInicial;
+    private BigDecimal saldo;
     private boolean status;
     @NotNull
     private Long clienteId;

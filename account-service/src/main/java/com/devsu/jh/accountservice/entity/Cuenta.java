@@ -20,8 +20,8 @@ public class Cuenta {
     private Long numeroDeCuenta;
     @Column(name = "ACCOUNT_TYPE")
     private String accountType;
-    @Column(name = "SALDO_INICIAL")
-    private BigDecimal saldoInicial;
+    @Column(name = "SALDO")
+    private BigDecimal saldo;
     @Column(name = "STATUS")
     private boolean status;
     @Column(name = "CLIENTE_ID", unique = true)

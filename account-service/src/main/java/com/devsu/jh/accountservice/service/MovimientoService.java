@@ -27,14 +27,21 @@ public class MovimientoService {
 
     public MovimientoDto registrarMovimiento(MovimientoDto movimientoDto) {
         var cuenta = cuentasService.retrieveCuentaByNumDeCuenta(movimientoDto.getNumeroDeCuenta());
-        var saldoActualizado = cuenta.getSaldoInicial().add(movimientoDto.getValor());
-        if (saldoActualizado.compareTo(BigDecimal.ZERO) < 1) {
+        var saldoActualizado = cuenta.getSaldo().add(movimientoDto.getValor());
+
+        if (saldoActualizado.compareTo(BigDecimal.ZERO) < 0) {
             log.info("La cuenta #{} no tiene fondos suficientes", movimientoDto.getNumeroDeCuenta());
             throw new InsufficientFundsException(movimientoDto.getNumeroDeCuenta());
         }
-        cuenta.setSaldoInicial(saldoActualizado);
+
+        movimientoDto.setSaldoInicial(cuenta.getSaldo());
+        movimientoDto.setTipoDeMovimiento(movimientoDto.getValor().compareTo(BigDecimal.ZERO) < 0
+                ? "Retiro de %s".formatted(Math.abs(movimientoDto.getValor().doubleValue()))
+                : "Deposito de %s".formatted(movimientoDto.getValor())
+        );
+
+        cuenta.setSaldo(saldoActualizado);
         var movimiento = movimientoMapper.toEntity(movimientoDto);
-        movimiento.setFecha(LocalDate.now());
         var result = movimientoMapper.toDto(repository.save(movimiento));
         cuentasService.updateCuenta(cuenta);
         return result;

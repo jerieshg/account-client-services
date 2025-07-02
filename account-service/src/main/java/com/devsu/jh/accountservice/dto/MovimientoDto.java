@@ -17,6 +17,7 @@ public class MovimientoDto {
     @NotNull
     private String tipoDeMovimiento;
     @NotNull
+    private BigDecimal saldoInicial;
     private BigDecimal valor;
 }
 

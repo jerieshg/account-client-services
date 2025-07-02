@@ -1,11 +1,6 @@
 package com.devsu.jh.accountservice.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,9 +22,16 @@ public class Movimiento {
     private LocalDate fecha;
     @Column(name = "TIPO_DE_MOVIMIENTO")
     private String tipoDeMovimiento;
+    @Column(name = "saldo_inicial")
+    private BigDecimal saldoInicial;
     @Column(name = "VALOR")
     private BigDecimal valor;
     @Column(name = "NUMERO_DE_CUENTA")
     private Long numeroDeCuenta;
+
+    @PrePersist
+    public void prePersist() {
+        fecha = LocalDate.now();
+    }
 }
 
